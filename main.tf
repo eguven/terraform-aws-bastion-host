@@ -1,7 +1,7 @@
 locals {
   current_ip  = trimspace(chomp(data.http.current_ip.body))
   cidr_blocks = var.cidr_blocks != [] ? var.cidr_blocks : ["${local.current_ip}/32"]
-  subnet_id   = var.subnet_id != "" ? var.subnet_id : element(data.aws_subnet_ids.public.ids, 0)
+  subnet_id   = var.subnet_id != "" ? var.subnet_id : element(data.aws_subnet_ids.public[0].ids.*, 0)
   ami         = var.ami != "" ? var.ami : data.aws_ami.amazon_linux_2.id
 }
 
