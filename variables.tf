@@ -27,9 +27,14 @@ variable "tcp_ports" {
 }
 
 variable "cidr_blocks" {
-  description = "CIDR blocks to add to bastion host security group, defaults to /32 of current IP from https://ipv4.icanhazip.com/."
+  description = "CIDR blocks to add to bastion host security group, defaults to []."
   type        = list(string)
   default     = []
+}
+
+variable "allow_current_ip" {
+  description = "If true, current IP (from https://ipv4.icanhazip.com/) will be allowed on var.tcp_ports, defaults to true."
+  default     = true
 }
 
 variable "ami" {
