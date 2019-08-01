@@ -1,6 +1,6 @@
 # terraform-aws-bastion-host
 
-Terraform module which creates a bastion host resource on AWS.
+Terraform module which creates a bastion host resource on AWS. Requires Terraform >= 0.12.
 
 ## Minimal Example
 
