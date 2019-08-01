@@ -8,13 +8,12 @@ locals {
 resource "aws_key_pair" "bastion_host" {
   count = var.key_name != "" ? 0 : 1
 
-  key_name   = lookup(var.create_public_key, "key_name", "${var.environment}-${var.resource_name_suffix}")
+  key_name   = lookup(var.create_public_key, "key_name", var.name)
   public_key = file(pathexpand(lookup(var.create_public_key, "key_filename", pathexpand("~/.ssh/id_rsa.pub"))))
 }
 
-
 resource "aws_security_group" "bastion_host" {
-  name   = "${var.environment}-${var.resource_name_suffix}"
+  name   = var.name
   vpc_id = var.vpc_id
 
   egress {
@@ -34,11 +33,13 @@ resource "aws_security_group" "bastion_host" {
     }
   }
 
-  tags = {
-    Terraform   = "true"
-    Environment = var.environment
-    Name        = "${var.environment}-${var.resource_name_suffix}"
-  }
+  tags = merge(
+    {
+      Terraform = "true"
+      Name      = var.name
+    },
+    var.extra_tags
+  )
 
   lifecycle {
     create_before_destroy = true
@@ -56,15 +57,19 @@ resource "aws_instance" "bastion_host" {
 
   associate_public_ip_address = true
 
-  tags = {
-    Terraform   = "true"
-    Environment = var.environment
-    Name        = "${var.environment}-${var.resource_name_suffix}"
-  }
+  tags = merge(
+    {
+      Terraform = "true"
+      Name      = var.name
+    },
+    var.extra_tags
+  )
 
-  volume_tags = {
-    Terraform   = "true"
-    Environment = var.environment
-    Name        = "${var.environment}-${var.resource_name_suffix}"
-  }
+  volume_tags = merge(
+    {
+      Terraform = "true"
+      Name      = var.name
+    },
+    var.extra_tags
+  )
 }

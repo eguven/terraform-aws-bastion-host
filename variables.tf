@@ -2,12 +2,8 @@ variable "vpc_id" {
   description = "VPC ID for the bastion host."
 }
 
-variable "environment" {
-  description = "A prefix for naming and tagging eg. dev, staging, production."
-}
-
-variable "resource_name_suffix" {
-  description = "A suffix for resource names, defaults to 'bastion-host'"
+variable "name" {
+  description = "Used in instance, security group, keypair naming, defaults to 'bastion-host'"
   default     = "bastion-host"
 }
 
@@ -53,6 +49,12 @@ variable "key_name" {
 
 variable "create_public_key" {
   description = "Map of public public key_name and key_filename to create an EC2 key from, eg. { key_name = 'foo', key_filename = '<some-path>' }. Either this or 'key_name' variable is required. Last resort is using '~/.ssh/id_rsa.pub'."
+  type        = map(string)
+  default     = {}
+}
+
+variable "extra_tags" {
+  description = "Map of extra tags to add to resources, eg. { Environment = 'dev' }. Defaults to {}. Terraform='true' and Name tags are added automatically."
   type        = map(string)
   default     = {}
 }
