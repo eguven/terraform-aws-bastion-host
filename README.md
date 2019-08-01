@@ -28,10 +28,10 @@ module "my_bastion_host" {
   vpc_id = "vpc-1337ffff1337ffff0"
   environment = "foobar"
 
-  # change naming suffix from bastion-host
+  # change name suffix from bastion-host
   resource_name_suffix = "jumphost"
 
-  # ami or instance type
+  # ami and instance type
   ami = "ami-aaaaaaaa"
   instance_type = "t3.large"
 

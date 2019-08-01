@@ -3,6 +3,7 @@ locals {
   cidr_blocks = var.cidr_blocks != [] ? var.cidr_blocks : ["${local.current_ip}/32"]
   subnet_id   = var.subnet_id != "" ? var.subnet_id : element(data.aws_subnet_ids.public[0].ids.*, 0)
   ami         = var.ami != "" ? var.ami : data.aws_ami.amazon_linux_2.id
+  merged_tags = merge({ "Terraform" = true, "Name" = var.name }, var.extra_tags)
 }
 
 resource "aws_key_pair" "bastion_host" {
@@ -33,13 +34,7 @@ resource "aws_security_group" "bastion_host" {
     }
   }
 
-  tags = merge(
-    {
-      Terraform = "true"
-      Name      = var.name
-    },
-    var.extra_tags
-  )
+  tags = local.merged_tags
 
   lifecycle {
     create_before_destroy = true
@@ -57,19 +52,6 @@ resource "aws_instance" "bastion_host" {
 
   associate_public_ip_address = true
 
-  tags = merge(
-    {
-      Terraform = "true"
-      Name      = var.name
-    },
-    var.extra_tags
-  )
-
-  volume_tags = merge(
-    {
-      Terraform = "true"
-      Name      = var.name
-    },
-    var.extra_tags
-  )
+  tags        = local.merged_tags
+  volume_tags = local.merged_tags
 }
