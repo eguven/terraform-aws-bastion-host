@@ -8,7 +8,7 @@ variable "name" {
 }
 
 variable "subnet_id" {
-  description = "Subnet ID to launch bastion host in, if not provided, subnet_tags is used to discover."
+  description = "Subnet ID to launch bastion host in, if not provided, 'subnet_tags' is used to discover."
   default     = ""
 }
 
@@ -33,7 +33,7 @@ variable "cidr_blocks" {
 }
 
 variable "allow_current_ip" {
-  description = "If true, current IP (from https://ipv4.icanhazip.com/) will be allowed on var.tcp_ports, defaults to true."
+  description = "If true, current IP (from https://ipv4.icanhazip.com/) will be allowed on 'tcp_ports', defaults to true."
   default     = true
 }
 
