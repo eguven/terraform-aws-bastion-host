@@ -39,7 +39,7 @@ resource "aws_security_group" "bastion_host" {
   tags = local.merged_tags
 
   lifecycle {
-    create_before_destroy = true
+    create_before_destroy = false
   }
 }
 
