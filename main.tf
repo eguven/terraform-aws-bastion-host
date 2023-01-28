@@ -1,7 +1,7 @@
 locals {
   current_ip  = trimspace(chomp(data.http.current_ip.body))
   cidr_blocks = distinct(concat(var.cidr_blocks, var.allow_current_ip ? ["${local.current_ip}/32"] : []))
-  subnet_id   = var.subnet_id != "" ? var.subnet_id : element(data.aws_subnet_ids.public[0].ids.*, 0)
+  subnet_id   = var.subnet_id != "" ? var.subnet_id : element(data.aws_subnets.public[0].ids.*, 0)
   ami         = var.ami != "" ? var.ami : data.aws_ami.amazon_linux_2.id
   merged_tags = merge({ "Terraform" = true, "Name" = var.name }, var.extra_tags)
 }

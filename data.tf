@@ -6,10 +6,13 @@ data "aws_vpc" "vpc" {
   id = var.vpc_id
 }
 
-data "aws_subnet_ids" "public" {
+data "aws_subnets" "public" {
   count = var.subnet_id != "" ? 0 : 1
 
-  vpc_id = data.aws_vpc.vpc.id
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.vpc.id]
+  }
   tags   = var.subnet_tags
 }
 
