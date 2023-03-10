@@ -13,7 +13,7 @@ data "aws_subnets" "public" {
     name   = "vpc-id"
     values = [data.aws_vpc.vpc.id]
   }
-  tags   = var.subnet_tags
+  tags = var.subnet_tags
 }
 
 data "aws_ami" "amazon_linux_2" {

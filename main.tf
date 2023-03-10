@@ -50,7 +50,7 @@ resource "aws_instance" "bastion_host" {
   key_name = var.key_name != "" ? var.key_name : aws_key_pair.bastion_host[0].key_name
 
   subnet_id              = local.subnet_id
-  vpc_security_group_ids = [aws_security_group.bastion_host.id]
+  vpc_security_group_ids = concat([aws_security_group.bastion_host.id], var.extra_security_group_ids)
 
   associate_public_ip_address = true
 
