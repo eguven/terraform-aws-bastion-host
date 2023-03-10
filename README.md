@@ -65,6 +65,7 @@ module "my_bastion_host" {
 | allow\_current\_ip | If true, current IP (from https://ipv4.icanhazip.com/) will be allowed on var.tcp_ports, defaults to true. | string | `true` | no |
 | ami | AMI to launch, if not provided, default is Amazon Linux 2 AMI latest. | string | `""` | no |
 | cidr\_blocks | CIDR blocks to add to bastion host security group, defaults to []. | list | `[]` | no |
+| extra\_security\_group\_ids | Additional SGs to attach to instance, defaults to []. | list | `[]` | no |
 | create\_public\_key | Map of public public key_name and key_filename to create an EC2 key from, eg. `{ key_name = 'foo', key_filename = '<some-path>' }`. Either this or 'key_name' variable is required. Last resort is using '~/.ssh/id_rsa.pub'. | map | `{}` | no |
 | extra\_tags | Map of extra tags to add to resources, eg. `{ Environment = 'dev' }`. Defaults to {}. Terraform='true' and Name tags are added automatically. | map | `{}` | no |
 | instance\_type | EC2 instance type, defaults to t3.nano. | string | `"t3.nano"` | no |

@@ -10,5 +10,5 @@ output "private_ip" {
 
 output "instance" {
   description = "AWS Instance object, https://www.terraform.io/docs/providers/aws/r/instance.html"
-  value = aws_instance.bastion_host
+  value       = aws_instance.bastion_host
 }

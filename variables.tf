@@ -32,6 +32,12 @@ variable "cidr_blocks" {
   default     = []
 }
 
+variable "extra_security_group_ids" {
+  description = "Additional SGs to attach to instance, defaults to []."
+  type        = list(string)
+  default     = []
+}
+
 variable "allow_current_ip" {
   description = "If true, current IP (from https://ipv4.icanhazip.com/) will be allowed on 'tcp_ports', defaults to true."
   default     = true
